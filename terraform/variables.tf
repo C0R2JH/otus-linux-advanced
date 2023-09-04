@@ -17,16 +17,11 @@ variable "zone" {
   description = "Default zone"
 }
 variable "project" {
-  type = string
+  type    = string
   default = "otus-c0r2jh"
 }
 
 #vm_settings
-variable "vms_count" {
-  type        = string
-  default     = "1"
-  description = "VMs count"
-}
 variable "cpu_count" {
   type        = string
   default     = "2"
@@ -43,7 +38,7 @@ variable "get_ubuntu_image" {
   description = "Default Ubuntu OS image id"
 }
 variable "ipv4_cidr_blocks" {
-  type = list
+  type    = list(any)
   default = ["192.168.10.0/24"]
 }
 

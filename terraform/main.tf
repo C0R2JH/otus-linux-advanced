@@ -3,44 +3,35 @@ data "yandex_compute_image" "get_ubuntu_image" {
 }
 
 resource "yandex_compute_instance" "vm" {
-  # count = var.vms_count
-  # name  = "${var.project}-vm-${count.index}"
-  name  = "${var.project}-vm"
-
+  name = "${var.project}-vm"
   resources {
     cores  = var.cpu_count
     memory = var.ram_count
   }
   boot_disk {
     initialize_params {
-      image_id = "${data.yandex_compute_image.get_ubuntu_image.id}"
+      image_id = data.yandex_compute_image.get_ubuntu_image.id
     }
   }
   network_interface {
     subnet_id = yandex_vpc_subnet.subnet.id
     nat       = true
   }
-  # metadata = {
-  #   user-data = "${file("files/default-users.txt")}"
-  # }
   metadata = {
     ssh-keys = "ubuntu:${file("~/.ssh/id_rsa.pub")}"
   }
-
   connection {
     type        = "ssh"
     user        = "ubuntu"
     private_key = file("~/.ssh/id_rsa")
     host        = yandex_compute_instance.vm.network_interface.0.nat_ip_address
   }
-
   provisioner "remote-exec" {
-    inline = ["echo 'Im ready!'"]
+    inline = ["echo 'Start'"]
 
   }
-
   provisioner "local-exec" {
-    command = "ansible-playbook -u ubuntu -i '${self.network_interface.0.nat_ip_address},' --private-key ~/.ssh/id_rsa provision.yml"
+    command = "ansible-playbook -i '${self.network_interface.0.nat_ip_address},' --private-key ~/.ssh/id_rsa --user ubuntu provision.yml"
   }
 }
 

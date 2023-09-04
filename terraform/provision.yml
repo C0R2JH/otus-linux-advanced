@@ -5,14 +5,12 @@
 
   tasks:
 
-  - name: Update all packages
-    apt:
-      name: nginx
-      state: latest
-      update_cache: yes
+  - name: Update apt cache
+    ansible.builtin.apt:
+        update_cache: yes
 
   - name: Install nginx
-    apt:
+    ansible.builtin.apt:
       name: nginx
       state: latest
 
