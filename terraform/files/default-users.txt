@@ -1,8 +1,0 @@
-#cloud-config
-users:
-  - name: eakorolev
-    groups: sudo
-    shell: /bin/bash
-    sudo: ['ALL=(ALL) NOPASSWD:ALL']
-    ssh-authorized-keys:
-      - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINX4iEP61mjozNOYFDdhh9O/HA/MzwUFjjSLUXAu/2tm eakorolev@CPRQ-FIRST
