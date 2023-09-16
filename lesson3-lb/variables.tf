@@ -18,9 +18,16 @@ variable "zone" {
 }
 variable "project" {
   type    = string
-  default = "otus-c0r2jh"
+  default = "otus-c0r2jh-lesson3"
 }
-
-#vm_settings
-
-
+variable "public_key_path" {
+  description = "Path to the public key used for ssh access"
+}
+variable "private_key_path" {
+  description = "Path to private key used for provisioner"
+}
+variable "get_ubuntu_image" {
+  type        = string
+  default     = "ubuntu-1804-lts"
+  description = "Default Ubuntu OS image id"
+}
